@@ -1,0 +1,110 @@
+{
+  "metadata": {
+    "provenance": "PROV_1_FAB_OS",
+    "description": "Canonical reference values for independent verification of Fab OS claims",
+    "last_verified": "2026-02-16",
+    "source": "Values extracted from validated simulation data in the full data room",
+    "version": "1.0"
+  },
+  "biharmonic_plate": {
+    "description": "Kirchhoff-Love thin plate under uniform thermal gradient (simply-supported circular plate)",
+    "material": "Silicon (100)",
+    "E_GPa": 130.0,
+    "nu": 0.28,
+    "alpha_per_K": 2.6e-6,
+    "thickness_um": 775.0,
+    "radius_mm": 150.0,
+    "delta_T_K": 0.01,
+    "analytical_formula": "w_max = (alpha * dT / h) * R^2 / 2",
+    "analytical_w_max_nm": 377.4194,
+    "fem_w_max_nm": 376.73,
+    "error_pct": 0.18,
+    "tolerance_pct": 1.0,
+    "reference": "Timoshenko & Woinowsky-Krieger, Theory of Plates and Shells, Section 14"
+  },
+  "physics_cliff": {
+    "description": "Warpage amplitude ratio at k_azi=0.99 vs k_azi=0 for Silicon under uniform thermal load",
+    "silicon_pv_at_k0_nm": 375.33,
+    "silicon_pv_at_k099_nm": 916.57,
+    "silicon_ratio_at_k099": 2.44,
+    "cliff_data": {
+      "k_azi_values": [0.00, 0.30, 0.50, 0.70, 0.80, 0.90, 0.95, 0.99],
+      "pv_nm":        [375.33, 375.88, 378.22, 397.39, 427.15, 497.67, 598.49, 916.57],
+      "ratio":        [1.00, 1.00, 1.01, 1.06, 1.14, 1.33, 1.59, 2.44]
+    },
+    "material_universality": {
+      "silicon": {"ratio_at_k099": 2.4834, "critical_k": 0.9},
+      "glass":   {"ratio_at_k099": 2.4802, "critical_k": 0.7},
+      "inp":     {"ratio_at_k099": 2.4529, "critical_k": 0.8},
+      "gaas":    {"ratio_at_k099": 2.418,  "critical_k": 0.85},
+      "sic":     {"ratio_at_k099": 2.4498, "critical_k": 0.95}
+    },
+    "tolerance_pct": 5.0
+  },
+  "ilc_convergence": {
+    "description": "ILC controller warpage reduction performance",
+    "default_config": {
+      "initial_gain": 0.5,
+      "ema_alpha": 0.5,
+      "single_run_reduction_pct": 90.8,
+      "mc_mean_reduction_pct": 91.03,
+      "mc_p10_pct": 87.95,
+      "mc_p50_pct": 91.04,
+      "mc_p90_pct": 94.19,
+      "n_trials": 100
+    },
+    "benchmark_config": {
+      "initial_gain": 0.6,
+      "ema_alpha": 0.6,
+      "single_run_reduction_pct": 96.5,
+      "mc_mean_reduction_pct": 96.58,
+      "mc_p10_pct": 94.16,
+      "mc_p50_pct": 96.50,
+      "mc_p90_pct": 99.04,
+      "n_trials": 100
+    },
+    "batch_315": {
+      "total_cases": 315,
+      "mean_reduction_pct": 90.3,
+      "median_reduction_pct": 93.4,
+      "failures": 0,
+      "cases_above_50pct": 315
+    },
+    "tolerance_pct": 5.0
+  },
+  "rom_surrogate": {
+    "description": "Reduced-order model surrogate accuracy",
+    "cv_r_squared": 0.9937,
+    "cv_r_squared_std": 0.0054,
+    "train_r_squared": 0.9999,
+    "n_features": 4,
+    "features": ["k_azi", "delta_T", "material", "load_pattern"],
+    "tolerance_r2": 0.98
+  },
+  "mesh_convergence": {
+    "description": "FEM mesh convergence study (10-level h-refinement)",
+    "convergence_data": [
+      {"mesh": "5x8",   "dof": 48,   "error_pct": 0.0028},
+      {"mesh": "10x16", "dof": 176,  "error_pct": 0.0007},
+      {"mesh": "20x32", "dof": 672,  "error_pct": 0.0002},
+      {"mesh": "30x48", "dof": 1488, "error_pct": 0.0001},
+      {"mesh": "40x64", "dof": 2624, "error_pct": 0.0000},
+      {"mesh": "60x96", "dof": 5856, "error_pct": 0.0000}
+    ],
+    "observed_convergence_rate": 1.77,
+    "richardson_extrapolation_nm": 377.4195,
+    "analytical_nm": 377.4194
+  },
+  "material_properties": {
+    "silicon":  {"E_GPa": 130.0, "nu": 0.28, "alpha_per_K": 2.6e-6},
+    "inp":      {"E_GPa": 61.0,  "nu": 0.36, "alpha_per_K": 4.6e-6},
+    "glass":    {"E_GPa": 73.6,  "nu": 0.23, "alpha_per_K": 3.17e-6},
+    "gaas":     {"E_GPa": 85.5,  "nu": 0.31, "alpha_per_K": 5.73e-6},
+    "sic":      {"E_GPa": 410.0, "nu": 0.14, "alpha_per_K": 4.3e-6}
+  },
+  "wafer_geometry": {
+    "diameter_mm": 300.0,
+    "radius_mm": 150.0,
+    "thickness_um": 775.0
+  }
+}

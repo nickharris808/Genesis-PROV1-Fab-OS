@@ -1,0 +1,115 @@
+{
+  "metadata": {
+    "provenance": "PROV_1_FAB_OS",
+    "title": "Physics Cliff: Eigenmode Instability in High-NA EUV Substrate Mechanics",
+    "inventor": "Nicholas Harris",
+    "entity": "Genesis Systems, Inc.",
+    "provisional_application": "63/751,001",
+    "filed": "2026-01-31",
+    "last_verified": "2026-02-16",
+    "version": "1.0"
+  },
+  "headline_metrics": {
+    "warpage_reduction": {
+      "default_config_pct": 90.8,
+      "benchmark_config_pct": 96.5,
+      "batch_mean_pct": 90.3,
+      "batch_median_pct": 93.4,
+      "mc_mean_default_pct": 91.03,
+      "method": "ILC controller, 315-case batch validation",
+      "note": "90.8% is the single-run deterministic result; 91.03% is the MC mean over 100 trials"
+    },
+    "fem_accuracy": {
+      "error_vs_timoshenko_pct": 0.18,
+      "mesh": "40x64 (2,561 DOF)",
+      "analytical_w_max_nm": 377.4194,
+      "fem_w_max_nm": 377.4192,
+      "method": "Kirchhoff-Love biharmonic plate equation vs Timoshenko analytical"
+    },
+    "physics_cliff": {
+      "silicon": {
+        "cliff_ratio_at_k099": 2.4834,
+        "critical_k_azi": 0.9,
+        "baseline_pv_nm": 932.12
+      },
+      "glass": {
+        "cliff_ratio_at_k099": 2.4802,
+        "critical_k_azi": 0.7,
+        "baseline_pv_nm": 1141.78
+      },
+      "inp": {
+        "cliff_ratio_at_k099": 2.4529,
+        "critical_k_azi": 0.8,
+        "baseline_pv_nm": 1671.27
+      },
+      "gaas": {
+        "cliff_ratio_at_k099": 2.418,
+        "critical_k_azi": 0.85,
+        "baseline_pv_nm": 2090.34
+      },
+      "sic": {
+        "cliff_ratio_at_k099": 2.4498,
+        "critical_k_azi": 0.95,
+        "baseline_pv_nm": 1554.01
+      },
+      "method": "Dense parametric sweep, 100 Monte Carlo trials per k_azi point, 15 k_azi values"
+    },
+    "batch_validation": {
+      "total_cases": 315,
+      "failures": 0,
+      "mean_reduction_pct": 90.3,
+      "materials": ["silicon", "inp", "glass", "gaas", "sic"],
+      "k_azi_values": [0.0, 0.3, 0.5, 0.7, 0.85, 0.9, 0.95],
+      "load_patterns": ["uniform", "euv_slit", "radial"],
+      "delta_T_values": [0.01, 0.025, 0.05]
+    },
+    "rom_surrogate": {
+      "cv_r_squared": 0.9937,
+      "cv_r_squared_std": 0.0054,
+      "n_features": 4,
+      "features": ["k_azi", "delta_T", "material", "load_pattern"],
+      "inference_time_ms": 0.2
+    },
+    "mesh_convergence": {
+      "convergence_order": 1.77,
+      "finest_mesh_error_pct": 0.0001,
+      "richardson_extrapolation_nm": 377.4195,
+      "threshold_met_at": "8x12 mesh"
+    },
+    "ilc_convergence": {
+      "silicon_default_iterations": 23,
+      "silicon_benchmark_iterations": 15,
+      "inp_default_iterations": 38,
+      "range": "15-60 iterations"
+    },
+    "cross_validation": {
+      "calculix_cases": 60,
+      "abaqus_cases": 45,
+      "production_wafers_simulated": 1250
+    }
+  },
+  "patent_portfolio": {
+    "provisional_claims": 112,
+    "utility_patents": 5,
+    "utility_total_claims": 280,
+    "claim_sections": {
+      "A_azimuthal_apparatus": "Claims 1-25",
+      "B_real_time_control": "Claims 26-45",
+      "C_system_integration": "Claims 46-60",
+      "D_certification_provenance": "Claims 61-75",
+      "E_reticle_extension": "Claims 76-82",
+      "F_transient_thermal": "Claims 83-90",
+      "G_surrogate_validation": "Claims 91-97",
+      "H_temperature_adaptive": "Claims 98-102",
+      "I_batch_optimization": "Claims 103-107",
+      "J_in_situ_measurement": "Claims 108-112"
+    }
+  },
+  "materials_library": {
+    "silicon": {"E_GPa": 130.0, "nu": 0.28, "alpha_per_K": 2.6e-6, "reference": "Hopcroft 2010"},
+    "inp": {"E_GPa": 61.0, "nu": 0.36, "alpha_per_K": 4.6e-6, "reference": "Levinshtein"},
+    "glass": {"E_GPa": 73.6, "nu": 0.23, "alpha_per_K": 3.17e-6, "reference": "Corning Eagle XG datasheet"},
+    "gaas": {"E_GPa": 85.5, "nu": 0.31, "alpha_per_K": 5.73e-6, "reference": "Blakemore 1982"},
+    "sic": {"E_GPa": 410.0, "nu": 0.14, "alpha_per_K": 4.3e-6, "reference": "Goldberg et al."}
+  }
+}
