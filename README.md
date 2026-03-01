@@ -251,9 +251,9 @@ All metrics were independently verified on February 16, 2026, through reproducib
 | 2 | **FEM accuracy vs Timoshenko** | 0.18% | Biharmonic plate solver, 40x64 mesh | `verification/reference_data/canonical_values.json` |
 | 3 | **Batch cases validated** | 315 | 5 materials x 7 k_azi x 3 loads x 3 temperatures | Full data room |
 | 4 | **Batch failures** | 0 | All 315 cases converged | Full data room |
-| 5 | **ROM surrogate R-squared** | 0.9937 (+/- 0.0054) | 4-feature model, 5-fold cross-validated | Full data room |
+| 5 | **ROM surrogate R-squared** | 0.975 (+/- 0.0054) | 4-feature model, 5-fold cross-validated | Full data room |
 | 6 | **Physics cliff threshold** | k_azi ~ 0.9 (silicon) | Dense parametric sweep, 100 MC trials per k_azi | `evidence/key_results.json` |
-| 7 | **Amplitude ratio at k=0.99** | 2.44x (silicon) | Monte Carlo validation (7,500 cases) | `evidence/key_results.json` |
+| 7 | **Amplitude ratio at k=0.99** | 2.42-2.48x (silicon); ~14x cross-load CV | Monte Carlo validation (7,500 cases), dual metrics | `evidence/key_results.json` |
 | 8 | **Materials validated** | 5 | Silicon, InP, Glass, GaAs, SiC | Full data room |
 | 9 | **ILC convergence** | 15-60 iterations | Material and config dependent | Full data room |
 | 10 | **Mesh convergence rate** | O(h^1.8) | 10-level h-refinement study | `verification/reference_data/canonical_values.json` |
@@ -511,7 +511,7 @@ The ROM is a gradient-boosting ensemble trained on FEM solver outputs, providing
 | **Input features** | k_azi, delta_T, material (encoded), load_pattern (encoded) |
 | **Output** | Peak-to-valley warpage (nm) |
 | **Training data** | 540 balanced FEM solutions spanning the parameter space |
-| **Cross-validation** | 5-fold, R-squared = 0.9937 +/- 0.0054 |
+| **Cross-validation** | 5-fold, R² = 0.975 +/- 0.0054 |
 | **Training R-squared** | 0.9999 |
 | **Inference time** | <0.2ms |
 
@@ -695,7 +695,7 @@ The application of Zernike-decomposed ILC specifically to azimuthal wafer flatne
 
 | Metric | Typical Industry ML | Genesis ROM |
 |:-------|:-------------------|:------------|
-| R-squared | 0.85-0.95 | **0.9937** |
+| R-squared | 0.85-0.95 | **0.975** |
 | Cross-validation method | Hold-out (often overfit) | 5-fold CV with std reported |
 | Training data provenance | Often unclear | Full SHA-256 hashes, 39 model manifest |
 | Inference latency | 10-100ms | **<0.2ms** |
@@ -792,7 +792,7 @@ The full data room contains the following evidence categories. This public repos
 | Category | Count | Description |
 |:---------|------:|:------------|
 | Individual batch case files | 315 | Full traceability (input, config, convergence, output) |
-| Monte Carlo cliff validation | 7,500 | Dense parametric sweep across stiffness space |
+| Monte Carlo cliff validation | 7,500 | Monte Carlo sampling across stiffness space |
 | CalculiX validation cases | 60 | Complete .inp input decks (C3D8 elements) |
 | ABAQUS comparison cases | 45 | S4R shell element input decks, 3 mesh densities |
 | Mesh convergence levels | 10 | h-refinement with Richardson extrapolation |
@@ -1079,7 +1079,7 @@ This repository and the associated data room contain no ITAR-restricted technica
 | Computational only | Transparent | Standard for pre-LOI IP packages |
 | Provisional patents | Priority date established | Utility conversion in progress |
 | Custom FEM solver | Validated to 0.18% | Cross-validation decks provided |
-| ROM on simulated data | R-squared 0.9937 | Bounded by FEM accuracy |
+| ROM on simulated data | R² = 0.975 | Bounded by FEM accuracy |
 | Specific materials/geometry | 5 materials, 300mm | Physics is universal |
 | Linear elasticity | Justified for EUV loads | May need extension for high-dT |
 | No contact mechanics | Spring model | Cliff detection still valid |
@@ -1236,7 +1236,7 @@ D = E * h^3 / [12 * (1 - nu^2)]
 ### EQ8: ROM Prediction (Real-Time Path)
 ```
 W_pv = f(k_azi, delta_T, material, load_pattern)
-R^2 = 0.9937, inference < 0.2ms
+R^2 = 0.975, inference < 0.2ms
 ```
 
 ### EQ9: ILC Convergence Condition
