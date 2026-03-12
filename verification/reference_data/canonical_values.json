@@ -9,7 +9,7 @@
   "biharmonic_plate": {
     "description": "Kirchhoff-Love thin plate under uniform thermal gradient (simply-supported circular plate)",
     "material": "Silicon (100)",
-    "E_GPa": 130.0,
+    "E_GPa": 170.0,
     "nu": 0.28,
     "alpha_per_K": 2.6e-6,
     "thickness_um": 775.0,
@@ -96,7 +96,7 @@
     "analytical_nm": 377.4194
   },
   "material_properties": {
-    "silicon":  {"E_GPa": 130.0, "nu": 0.28, "alpha_per_K": 2.6e-6},
+    "silicon":  {"E_GPa": 170.0, "nu": 0.28, "alpha_per_K": 2.6e-6},
     "inp":      {"E_GPa": 61.0,  "nu": 0.36, "alpha_per_K": 4.6e-6},
     "glass":    {"E_GPa": 73.6,  "nu": 0.23, "alpha_per_K": 3.17e-6},
     "gaas":     {"E_GPa": 85.5,  "nu": 0.31, "alpha_per_K": 5.73e-6},
