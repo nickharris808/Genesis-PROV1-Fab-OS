@@ -41,6 +41,8 @@ The biharmonic FEM solver is a **custom Python implementation** using NumPy and 
 
 **What this means:** While the solver is validated against established analytical solutions and generates input decks for independent verification with commercial tools, it should be understood as a research-grade tool. A buyer with CalculiX or ABAQUS licenses can independently verify results using the provided input decks.
 
+**Important clarification (Feb 2026 audit):** The CalculiX/ABAQUS "cross-validation" is **input deck generation only** -- the input decks were generated but never actually executed in CalculiX or ABAQUS. No cross-solver comparison results exist. Additionally, `comparison_results.json` contains a **222% error** entry that was not flagged in the original disclosures. The FEM solver also uses **hardcoded Si wafer geometry** (300mm diameter, standard thickness) for all materials, meaning InP, GaAs, and SiC results use silicon's geometry rather than material-specific wafer dimensions.
+
 ---
 
 ## 4. ROM Surrogate Trained on Simulated Data
