@@ -33,7 +33,7 @@ Utility patent conversion is in progress. The provisional filing establishes pri
 The biharmonic FEM solver is a **custom Python implementation** using NumPy and SciPy. It is not a commercial finite element analysis package (such as ANSYS, ABAQUS, or COMSOL).
 
 **Validation performed:**
-- Timoshenko analytical solution: 0.18% accuracy for clamped circular plate
+- Timoshenko analytical solution: 0.18% accuracy for simply-supported circular plate
 - Mesh convergence study: O(h^1.8) convergence rate across 10 refinement levels
 - Richardson extrapolation: Agreement with analytical reference to 4 significant figures
 - CalculiX cross-validation: 60 cases with complete .inp input decks generated
@@ -47,7 +47,7 @@ The biharmonic FEM solver is a **custom Python implementation** using NumPy and 
 
 ## 4. ROM Surrogate Trained on Simulated Data
 
-The reduced-order model (ROM) surrogate achieving R-squared = 0.9937 was trained **exclusively on outputs from the FEM solver**, not on physical measurement data. The ROM's accuracy is therefore bounded by:
+The reduced-order model (ROM) surrogate achieving R-squared = 0.975 (5-fold cross-validated; v3 with ghost feature k_edge removed) was trained **exclusively on outputs from the FEM solver**, not on physical measurement data. The ROM's accuracy is therefore bounded by:
 
 - The accuracy of the underlying FEM simulation (0.18% vs. Timoshenko)
 - The representativeness of the training data parameter space
@@ -132,7 +132,7 @@ All content is fundamental research and commercial semiconductor manufacturing t
 | Computational only | Transparent | Standard for pre-LOI IP packages |
 | Provisional patents | Priority date established | Utility conversion in progress |
 | Custom FEM solver | Validated to 0.18% | Cross-validation decks provided |
-| ROM on simulated data | R-squared 0.9937 | Bounded by FEM accuracy |
+| ROM on simulated data | R-squared 0.975 (CV; train R2=0.9999 indicates moderate overfitting) | Bounded by FEM accuracy |
 | Specific materials/geometry | 5 materials, 300mm | Physics is universal |
 | Linear elasticity | Justified for EUV loads | May need extension for high-dT |
 | No contact mechanics | Spring model | Cliff detection still valid |

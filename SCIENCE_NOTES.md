@@ -185,6 +185,49 @@ k_azi approaches 1.0:
 
 ---
 
+## 6. ROM OVERFITTING RISK (ACKNOWLEDGED)
+
+### What was found
+The ROM v3 (GradientBoosting, 540 samples) has train R2=0.9999 vs CV R2=0.975.
+The gap (0.025) indicates moderate overfitting -- the model memorizes training
+data better than it generalizes.  Additionally, `canonical_values.json` and
+`HONEST_DISCLOSURES.md` previously cited the stale pre-v3 value of R2=0.9937
+(which was inflated by the ghost k_edge feature).
+
+### What was fixed
+1. `canonical_values.json`: ROM R2 updated from 0.9937 to 0.975 with overfitting note.
+2. `HONEST_DISCLOSURES.md`: ROM R2 updated from 0.9937 to 0.975 with overfitting note.
+3. The train/CV gap is now disclosed wherever R2 is cited.
+
+### What remains
+- The 0.975 CV R2 is honest but the train R2=0.9999 suggests the model
+  could benefit from regularization or reduced complexity.
+- With only 540 training samples and 200 boosting estimators at depth 5,
+  the model has high capacity relative to the data size.
+- The ROM is adequate for its purpose (real-time inference) but should not
+  be represented as having R2>0.99 without the CV caveat.
+
+---
+
+## 7. DESIGN-AROUND GAP CLARIFICATION (PARTIALLY FIXED)
+
+### What was found
+Many documents headline "13.2x design-around gap" without noting this
+compares Genesis ILC (90.5nm) against the Kitchen Sink combination (1,198nm),
+not against the actual best competitor Hybrid B (725nm = 8.0x gap).
+
+### What was fixed
+1. `CERTIFICATE_OF_VALIDITY.md`: Now shows both 8.0x and 13.2x with context.
+2. `DUE_DILIGENCE_REPORT.md`: Already had honest dual reporting.
+3. `SCIENCE_NOTES.md` (section 2): Already documented.
+
+### What remains
+- Several documents still headline 13.2x without the Hybrid B context.
+  These include some legal/patent files that were intentionally not modified.
+- The fair comparison is 8.0x vs Hybrid B, not 13.2x vs Kitchen Sink.
+
+---
+
 ## SUMMARY OF REMAINING LIMITATIONS
 
 | # | Limitation | Severity | Mitigation |
@@ -197,6 +240,9 @@ k_azi approaches 1.0:
 | 6 | Deterministic "Monte Carlo" | LOW | Ensemble mode added; fixed seeds are transparent |
 | 7 | No temperature-dependent properties | LOW | Negligible at EUV thermal loads (dT ~ 0.01K) |
 | 8 | 2D plate model (not 3D solid) | LOW | Appropriate for thin wafers (h/R ~ 0.005) |
+| 9 | ROM overfitting (train R2=0.9999 vs CV R2=0.975) | LOW | CV R2 is the honest metric; gap indicates moderate overfitting |
+| 10 | Design-around 13.2x headline uses Kitchen Sink baseline | MEDIUM | Fair comparison is 8.0x vs best competitor (Hybrid B at 725nm) |
+| 11 | Patent D (utility_patent_D_pixelated_stiffness.md) lists Si E=130 GPa | LOW | Filed legal doc; correct value is 170 GPa. All code uses 170 GPa. Patent counsel should review. |
 
 ---
 
